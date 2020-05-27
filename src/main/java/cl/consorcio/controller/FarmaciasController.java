@@ -28,6 +28,7 @@ public class FarmaciasController {
     @CrossOrigin
     @RequestMapping(value ="/getComuna", method = RequestMethod.POST)
     public ResponseEntity<ResponseVO<List<Comuna>>> getComunasByIdRegion(@RequestBody String idRegion){
+
         LOGGER.info("INIT getComunasByIdRegion");
         LOGGER.info("PARAM: "+idRegion);
         String id = getValueFromJSON(idRegion, "idRegion");
@@ -42,12 +43,14 @@ public class FarmaciasController {
             return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
 
         }
+
         LOGGER.info("END getComunasByIdRegion");
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
     @CrossOrigin
     @RequestMapping(value ="/getFarmacias", method = RequestMethod.POST)
     public ResponseEntity<ResponseVO<List<Farmacia>>> getFarmaciasByIdComuna(@RequestBody String params){
+
         LOGGER.info("INIT getFarmaciasByIdComuna");
         LOGGER.info("PARAMS: "+params);
         List<Farmacia> listaFarmacias = new ArrayList<>();
@@ -55,6 +58,7 @@ public class FarmaciasController {
         String comuna = getValueFromJSON(params, "idComuna");
         String farmacia = getValueFromJSON(params, "nombreFarmacia");
         ResponseVO<List<Farmacia>> responseEntity = new ResponseVO<>();
+
         try {
             listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna(id, comuna, farmacia);
             responseEntity.setCodigo("0");
@@ -63,6 +67,7 @@ public class FarmaciasController {
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
         }
+
         LOGGER.info("END getFarmaciasByIdComuna");
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
