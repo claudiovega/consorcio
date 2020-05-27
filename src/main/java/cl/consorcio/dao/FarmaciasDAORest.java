@@ -71,7 +71,7 @@ public class FarmaciasDAORest {
             }
 
         } catch (Exception e) {
-            LOGGER.error("callFarmaciasMapMinsal "+e.getMessage());
+            LOGGER.error("ERROR: callFarmaciasMapMinsal "+e);
             throw e;
         }
         LOGGER.info("END callFarmaciasMapMinsal");
@@ -98,7 +98,7 @@ public class FarmaciasDAORest {
             }
 
         }catch(Exception e){
-            LOGGER.error("callFarmaciasByRegion "+e.getMessage());
+            LOGGER.error("ERROR: callFarmaciasByRegion "+e.getMessage());
             throw e;
         }
         LOGGER.info("END callFarmaciasByRegion");

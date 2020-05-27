@@ -35,13 +35,14 @@ public class FarmaciasController {
         List<Comuna> listaComunas = new ArrayList<>();
         ResponseVO<List<Comuna>> responseEntity = new ResponseVO<>();
         try {
+
             listaComunas = farmaciasHelper.getComunasByIdRegion(id);
             responseEntity.setCodigo("0");
             responseEntity.setMensaje("OK");
             responseEntity.setBody(listaComunas);
         } catch (Exception e) {
-            LOGGER.error("getComunasByIdRegion "+e.getMessage());
-            return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
+            LOGGER.error("ERROR: getComunasByIdRegion "+e);
+            return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e), HttpStatus.OK);
 
         }
 
@@ -58,16 +59,17 @@ public class FarmaciasController {
         String id = getValueFromJSON(params, "idRegion");
         String comuna = getValueFromJSON(params, "idComuna");
         String farmacia = getValueFromJSON(params, "nombreFarmacia");
+        String farmaciaTurno = getValueFromJSON(params, "farmaciaTurno");
         ResponseVO<List<Farmacia>> responseEntity = new ResponseVO<>();
 
         try {
-            listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna(id, comuna, farmacia);
+            listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna(id, comuna, farmacia,farmaciaTurno);
             responseEntity.setCodigo("0");
             responseEntity.setMensaje("OK");
             responseEntity.setBody(listaFarmacias);
         } catch (Exception e) {
-            LOGGER.error("getFarmaciasByIdComuna "+e.getMessage());
-            return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
+            LOGGER.error("ERROR: getFarmaciasByIdComuna "+e);
+            return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e), HttpStatus.OK);
         }
 
         LOGGER.info("END getFarmaciasByIdComuna");

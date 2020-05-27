@@ -26,20 +26,21 @@ public class FarmaciasHelper {
     @Autowired
     FarmaciasDAORest farmaciasDAORest;
 
-    public List<Comuna> getComunasByIdRegion(String idRegion){
+    public List<Comuna> getComunasByIdRegion(String idRegion) throws Exception {
         LOGGER.info("INIT getComunasByIdRegion, idRegion: ["+idRegion+"]");
         List<Comuna> result = new ArrayList<Comuna>();
 
         try {
             result = farmaciasDAORest.callFarmaciasMapMinsal(idRegion);
-        } catch (Exception ignored) {
-            LOGGER.error("getComunasByIdRegion "+ignored.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("ERROR: getComunasByIdRegion "+e);
+            throw e;
         }
         LOGGER.info("END getComunasByIdRegion");
         return result;
 
     }
-    public List<Farmacia> getFarmaciasByIdComuna(String idRegion, String idComuna, String nombreFarmacia){
+    public List<Farmacia> getFarmaciasByIdComuna(String idRegion, String idComuna, String nombreFarmacia, String farmaciaTurno) throws Exception {
 
         LOGGER.info("INIT getFarmaciasByIdComuna, idRegion: ["+idRegion+"], idComuna: ["+idComuna+"], nombreFarmacia: ["+nombreFarmacia+"]");
         List<Farmacia> result = new ArrayList<Farmacia>();
@@ -58,13 +59,16 @@ public class FarmaciasHelper {
             if (!StringUtils.isEmpty(nombreFarmacia)){
                 result = this.filterByNombreFarmacia(result, nombreFarmacia);
             }
-
+            if (farmaciaTurno.equals("1")) {
+                result = this.filterFarmaciaDeTurno(result);
+            }
             if (!CollectionUtils.isEmpty(result)){
                 result.sort(Comparator.comparing(Farmacia::getLocalNombre));
             }
 
-        } catch (Exception ignored) {
-            LOGGER.error("getFarmaciasByIdComuna "+ignored.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("ERROR: getFarmaciasByIdComuna "+e);
+            throw e;
 
         }
         LOGGER.info("END getFarmaciasByIdComuna");
@@ -95,6 +99,18 @@ public class FarmaciasHelper {
 
         }
         LOGGER.info("END filterByNombreFarmacia");
+        return result;
+
+    }
+    private List<Farmacia> filterFarmaciaDeTurno(List<Farmacia> listaFarmacias){
+        LOGGER.info("INIT filterByIdComuna");
+        List<Farmacia> result = new ArrayList<>();
+
+        if (!CollectionUtils.isEmpty(listaFarmacias)){
+            result = listaFarmacias.stream().filter(x -> "00:00 hrs.".equals(x.getFuncionamientoHoraApertura())).collect(Collectors.toList());
+            result = result.stream().filter(x -> "00:00 hrs.".equals(x.getFuncionamientoHoraCierre())).collect(Collectors.toList());
+        }
+        LOGGER.info("END filterByIdComuna");
         return result;
 
     }

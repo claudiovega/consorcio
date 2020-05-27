@@ -30,20 +30,37 @@ class ConsorcioApplicationTests {
 	@Test
 	void testComunasByRegion() {
 		logger.info("Ejecutando testComunasByRegion");
-		List<Comuna> listaComunas = farmaciasHelper.getComunasByIdRegion("7");
+		List<Comuna> listaComunas = null;
+		try {
+			listaComunas = farmaciasHelper.getComunasByIdRegion("7");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertThat(listaComunas).isNotEmpty();
 	}
 	@Test
 	void testFarmciasByComuna() {
 		logger.info("Ejecutando testFarmciasByComuna");
-		List<Farmacia> listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127",null);
-		assertThat(listaFarmacias).isNotEmpty();
+		List<Farmacia> listaFarmacias = null;
+		try {
+			listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127",null, "2");
+			assertThat(listaFarmacias).isNotEmpty();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	@Test
 	void testFarmciasFiltroNombre() {
 		logger.info("Ejecutando testFarmciasFiltroNomnre");
-		List<Farmacia> listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127","san Nicolás");
-		assertThat(listaFarmacias).isNotEmpty();
+		List<Farmacia> listaFarmacias = null;
+		try {
+			listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127","san Nicolás","2");
+			assertThat(listaFarmacias).isNotEmpty();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Test
