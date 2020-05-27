@@ -75,7 +75,7 @@ public class FarmaciasController {
         LOGGER.info("END getFarmaciasByIdComuna");
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
-    
+
     private static String getValueFromJSON(@RequestBody String json, String fieldName) {
 
         Object obj = JSONValue.parse(json);

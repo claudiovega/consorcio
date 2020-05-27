@@ -26,11 +26,6 @@ public class ResponseVO<T>{
         this.mensaje = mensaje;
     }
 
-//    public static ResponseVO getInstanceDefault(CoreException exception) {
-//            return new ResponseVO(exception.getCodigo(), exception.getMensaje());
-//    }
-
-
     public String getCodigo() {
         return codigo;
     }
