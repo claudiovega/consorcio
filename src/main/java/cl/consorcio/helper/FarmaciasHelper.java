@@ -94,7 +94,7 @@ public class FarmaciasHelper {
         List<Farmacia> result = new ArrayList<>();
 
         if (!StringUtils.isEmpty(nombre) && !CollectionUtils.isEmpty(listaFarmacias)){
-            //result = listaFarmacias.stream().filter(x -> limpiaAcentos(nombre).toLowerCase().replace(" ","").equals(limpiaAcentos(x.getLocalNombre()).trim().toLowerCase().replace(" ",""))).collect(Collectors.toList());
+
             result = listaFarmacias.stream().filter(x -> limpiaAcentos(x.getLocalNombre()).toLowerCase().replace(" ","").contains(limpiaAcentos(nombre).trim().toLowerCase().replace(" ",""))).collect(Collectors.toList());
 
         }
@@ -103,14 +103,14 @@ public class FarmaciasHelper {
 
     }
     private List<Farmacia> filterFarmaciaDeTurno(List<Farmacia> listaFarmacias){
-        LOGGER.info("INIT filterByIdComuna");
+        LOGGER.info("INIT filterFarmaciaDeTurno");
         List<Farmacia> result = new ArrayList<>();
 
         if (!CollectionUtils.isEmpty(listaFarmacias)){
             result = listaFarmacias.stream().filter(x -> "00:00 hrs.".equals(x.getFuncionamientoHoraApertura())).collect(Collectors.toList());
             result = result.stream().filter(x -> "00:00 hrs.".equals(x.getFuncionamientoHoraCierre())).collect(Collectors.toList());
         }
-        LOGGER.info("END filterByIdComuna");
+        LOGGER.info("END filterFarmaciaDeTurno");
         return result;
 
     }

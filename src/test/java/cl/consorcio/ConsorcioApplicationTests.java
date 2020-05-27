@@ -1,6 +1,5 @@
 package cl.consorcio;
 
-import cl.consorcio.controller.FarmaciasController;
 import cl.consorcio.dao.FarmaciasDAORest;
 import cl.consorcio.helper.FarmaciasHelper;
 import cl.consorcio.vo.Comuna;
@@ -19,9 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConsorcioApplicationTests {
 
 	@Autowired
-	FarmaciasController farmaciasController;
-
-	@Autowired
 	FarmaciasDAORest farmaciasDAORest;
 
 	@Autowired
@@ -34,7 +30,7 @@ class ConsorcioApplicationTests {
 		try {
 			listaComunas = farmaciasHelper.getComunasByIdRegion("7");
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		assertThat(listaComunas).isNotEmpty();
 	}
@@ -46,7 +42,7 @@ class ConsorcioApplicationTests {
 			listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127",null, "2");
 			assertThat(listaFarmacias).isNotEmpty();
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 
 	}
@@ -58,7 +54,7 @@ class ConsorcioApplicationTests {
 			listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127","san Nicolás","2");
 			assertThat(listaFarmacias).isNotEmpty();
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 
 	}

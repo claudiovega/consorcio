@@ -63,7 +63,7 @@ public class FarmaciasController {
         ResponseVO<List<Farmacia>> responseEntity = new ResponseVO<>();
 
         try {
-            listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna(id, comuna, farmacia,farmaciaTurno);
+            listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna(id, comuna, farmacia, farmaciaTurno);
             responseEntity.setCodigo("0");
             responseEntity.setMensaje("OK");
             responseEntity.setBody(listaFarmacias);
@@ -75,6 +75,7 @@ public class FarmaciasController {
         LOGGER.info("END getFarmaciasByIdComuna");
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
+    
     private static String getValueFromJSON(@RequestBody String json, String fieldName) {
 
         Object obj = JSONValue.parse(json);
