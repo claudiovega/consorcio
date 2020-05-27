@@ -40,6 +40,7 @@ public class FarmaciasController {
             responseEntity.setMensaje("OK");
             responseEntity.setBody(listaComunas);
         } catch (Exception e) {
+            LOGGER.error("getComunasByIdRegion "+e.getMessage());
             return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
 
         }
@@ -65,6 +66,7 @@ public class FarmaciasController {
             responseEntity.setMensaje("OK");
             responseEntity.setBody(listaFarmacias);
         } catch (Exception e) {
+            LOGGER.error("getFarmaciasByIdComuna "+e.getMessage());
             return new ResponseEntity<>(new ResponseVO("5", "ERROR: "+e.getMessage()), HttpStatus.OK);
         }
 
