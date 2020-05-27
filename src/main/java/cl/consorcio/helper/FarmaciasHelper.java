@@ -5,7 +5,6 @@ import cl.consorcio.vo.Comuna;
 import cl.consorcio.vo.Farmacia;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Type;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +31,7 @@ public class FarmaciasHelper {
         try {
             result = farmaciasDAORest.callFarmaciasMapMinsal(idRegion);
         } catch (Exception ignored) {
-
+            LOGGER.error(ignored.getMessage());
         }
         return result;
     }
@@ -53,10 +51,11 @@ public class FarmaciasHelper {
             if (!CollectionUtils.isEmpty(result)){
                 result.sort(Comparator.comparing(Farmacia::getLocalNombre));
             }
-            LOGGER.info(result.toString());
+
 
         } catch (Exception ignored) {
-            ignored.printStackTrace();
+            LOGGER.error(ignored.getMessage());
+
         }
         return result;
     }
