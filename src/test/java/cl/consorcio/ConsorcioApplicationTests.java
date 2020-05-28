@@ -48,7 +48,7 @@ class ConsorcioApplicationTests {
 	}
 	@Test
 	void testFarmciasFiltroNombre() {
-		logger.info("Ejecutando testFarmciasFiltroNomnre");
+		logger.info("Ejecutando testFarmciasFiltroNombre");
 		List<Farmacia> listaFarmacias = null;
 		try {
 			listaFarmacias = farmaciasHelper.getFarmaciasByIdComuna("7","127","san Nicolás","2");
